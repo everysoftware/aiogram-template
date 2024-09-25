@@ -1,18 +1,10 @@
-from typing import Optional
-
-import pydantic
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
+from pydantic_settings import BaseSettings as PydanticBaseSettings, SettingsConfigDict
 
 
-class BotBase(BaseModel):
-    pass
+class BackendBase(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
 
 
-class OpenID(BotBase):
-    id: str
-    email: Optional[pydantic.EmailStr] = None
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
-    display_name: Optional[str] = None
-    picture: Optional[str] = None
-    provider: str
+class BaseSettings(PydanticBaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", extra="allow")

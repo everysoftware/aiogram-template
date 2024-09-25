@@ -3,14 +3,15 @@ import logging
 
 from aiogram import Bot, Dispatcher
 
+from app.users.lifespan import register_admin
+from app.users.router import router as start_router
 from .bot import bot as tg_bot
-from .start import router as start_router
 
 routers = [start_router]
 
 
 async def on_startup(bot: Bot, dispatcher: Dispatcher) -> None:
-    pass
+    await register_admin()
 
 
 async def on_shutdown(bot: Bot, dispatcher: Dispatcher) -> None:
@@ -23,19 +24,9 @@ dp.startup.register(on_startup)
 dp.shutdown.register(on_shutdown)
 
 
-def start_polling() -> None:
-    """
-    Start polling the bot. Supports graceful shutdown.
-    Use this instead of `asyncio.run(dp.start_polling(bot))` to support graceful shutdown
-    """
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(dp.start_polling(tg_bot))
-
-
 def main() -> None:
     logging.basicConfig(level=logging.INFO)
-    start_polling()
+    asyncio.run(dp.start_polling(tg_bot))
 
 
 if __name__ == "__main__":

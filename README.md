@@ -19,7 +19,7 @@ Production-ready telegram bots template with PostgreSQL, Redis & admin panel.
 git clone https://github.com/everysoftware/aiogram-template
 ```
 
-2. Create a `.env` file. Use the `.env.example` as a reference.
+2. Create a `.env` file. Use the `.example.env` as a reference.
 3. Run the application:
 
 ```bash

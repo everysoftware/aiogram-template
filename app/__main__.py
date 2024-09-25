@@ -11,7 +11,7 @@ routers = [start_router]
 
 
 async def on_startup(bot: Bot, dispatcher: Dispatcher) -> None:
-    await register_admin()
+    await register_admin()  # type: ignore[call-arg]
 
 
 async def on_shutdown(bot: Bot, dispatcher: Dispatcher) -> None:
